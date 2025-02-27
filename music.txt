@@ -1,0 +1,158 @@
+create database music_management;
+create table Songs (
+  song_id INT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  artist_id INT foreign key references Artist(artist_id),
+  album_id  int foreign key references  Albums(album_id),
+  genre_id  int foreign key references  Genres(genre_id),
+  duration time NOT NULL,
+  release_year varchar(4) not null
+);
+select * from Songs
+insert into  Songs values(101,'boy with love',1,23,52,'3:49','2022')
+insert into  Songs values(102,'fire',1,23,52,'3:23','2022')
+insert into  Songs values(103,'feel my love',2,24,53,'5:00','2004')
+insert into  Songs values(104,'nuvvunte',2,24,53,'5:12','2022')
+insert into  Songs values(105,'SORRY',3,25,54,'3:20','2019')
+insert into  Songs values(106,'I WILL SHOW YOU',3,25,54,'3:19','2019')
+insert into  Songs values(107,'Enchanted',4,26,55,'5:53','2010')
+insert into  Songs values(108,'country road',5,27,56,'2:58','1989')
+insert into  Songs values(109,'ninnele',6,28,53,'5:22','2022')
+insert into  Songs values(110,'toccato',7,29,57,'4:36','1980')
+insert into  Songs values(111,'never let go',8,30,58,'3:58','1999')
+insert into  Songs values(112,'Beast mode',9,31,53,'3:41','2022')
+insert into  Songs values(113,'bitter sweet',10,32,52,'3:31','2022')
+insert into  Songs values(114,'dhingana',11,33,53,'2:46','2016')
+insert into  Songs values(115,'hotel california',12,34,58,'2:47','2021')
+insert into  Songs values(116,'ur mum',13,35,59,'6:05','2022')
+insert into  Songs values(117,'all night',15,36,52,'4:07','2019')
+insert into  Songs values(118,'kesariya',16,37,53,'4:29','2022')
+insert into  Songs values(119,'automatic',8,30,58,'5:28','1999')
+insert into  Songs values(120,'tick tock',10,32,52,'3:04','2022')
+create table Artist (
+  artist_id INT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  country VARCHAR(50) not null,
+  --bio VARCHAR(500) not null,
+);
+
+
+insert into Artist values(1,'BTS','korea')
+insert into Artist values(2,'DSP','India')
+insert into Artist values(3,'Justin Beiber','Canada')
+insert into Artist values(4,'Tylor Swift','USA')
+insert into Artist values(5,'Mylene Farmer','France')
+insert into Artist values(6,'Sid Sri RAM','India')
+insert into Artist values(7,'faye Wong','China')
+insert into Artist values(8,'Hikaru Utada','Japan')
+insert into Artist values(9,'Anirudh','India')
+insert into Artist values(10,'Twice','korea')
+insert into Artist values(11,'Sonu Nigam','India')
+insert into Artist values(12,'Clueso','Germany')
+insert into Artist values(13,'Wet Leg','UK')
+insert into Artist values(14,'Chenyu hua','China')
+insert into Artist values(15,'Astro','korea')
+insert into Artist values(16,'Arjit Singh','India')
+
+
+create table Albums (
+  album_id INT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  artist_id INT foreign key references Artist(artist_id) ,
+  release_year varchar(4)  null,
+);
+
+insert into Albums values(23,'Proof',1,'2022')
+insert into Albums values(24,'Arya',2,'2004')
+insert into Albums values(25,'The best',3,'2019')
+insert into Albums values(26,'Speaknow',4,'2010')
+insert into Albums values(27,'En concert',5,'1989')
+insert into Albums values(28,'Radhe shyam',6,'2022')
+insert into Albums values(29,'Sky',7,'1994')
+insert into Albums values(30,'First love',8,'1999')
+insert into Albums values(31,'Beast',9,'2022')
+insert into Albums values(32,'Celebrate',10,'2022')
+insert into Albums values(33,'Raees',11,'2016')
+insert into Albums values(34,'A_lbum',12,'2021')
+insert into Albums values(35,'Wet leg',13,'2022')
+insert into Albums values(36,'All night',15,'2019')
+insert into Albums values(37,'Brahmastra',16,'2022')
+
+
+create table Genres (
+  genre_id INT PRIMARY KEY,
+  genre_name VARCHAR(50) NOT NULL UNIQUE,
+ -- description VARCHAR(500)
+);
+insert into Genres values(51,'jazz')
+insert into Genres values(52,'k-pop')
+insert into Genres values(53,'indian film pop')
+insert into Genres values(54,'rythm and blues')
+insert into Genres values(55,'pop punk')
+insert into Genres values(56,'folk rock')
+insert into Genres values(57,'rock')
+insert into Genres values(58,'pop')
+insert into Genres values(59,'indie')
+insert into Genres values(60,'classical music')
+insert into Genres values(61,'hip pop')
+insert into Genres values(62,'metal')
+insert into Genres values(63,'soul')
+insert into Genres values(64,'techno')
+insert into Genres values(65,'dubstep')
+insert into Genres values(66,'disco')
+insert into Genres values(67,'gospel')
+insert into Genres values(68,'grunge')
+insert into Genres values(69,'alternative')
+
+create table User_Playlist (
+  playlist_id INT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  customer_id INT foreign key references Customer(customer_id)
+);
+insert into User_Playlist values(231,'mood upsongs', 82176)
+insert into User_Playlist values(232,'favoritesongs', 25374)
+insert into User_Playlist values(233,'energeticsongs', 71992)
+insert into User_Playlist values(234,'indian filmsongs', 59126)
+insert into User_Playlist values(235,'kpopsongs', 72835)
+
+create table Playlist_song(
+play_listid int foreign key references  User_Playlist(playlist_id),
+song_id int foreign key references  Songs(song_id),
+added_at  varchar(50) null
+);
+insert into Playlist_song values(231,101,'favoritesongs')
+insert into Playlist_song values(232,110,'mood upsongs')
+insert into Playlist_song values(235,120,'energetic songs')
+insert into Playlist_song values(233,112,'favoritesongs')
+insert into Playlist_song values(234,109,'indianfilmsongs')
+insert into Playlist_song values(231,112,'favoritesongs')
+insert into Playlist_song values(234,102,'kpopsongs')
+insert into Playlist_song values(233,116,'energeticsongs')
+
+
+
+create table Customer (
+  customer_id INT PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(50) NOT NULL,
+);
+insert into customer values(82176,'Kasturi','Deekshitha','kasturideekshi278@gmail.com','deeksh52868')
+insert into customer values(85382,'Anu','Jain','anujain69201@gmail.com','jain72819')
+insert into customer values(72835,'Utturu','krishna','krishnautturu@gmail.com','utturukrish@672')
+insert into customer values(25374,'Konduru','Usha','usha1407@gmail.com','usha072003')
+insert into customer values(52390,'Beri','Laksh','Laksh7829@gmail.com','luckylaksh')
+insert into customer values(71992,'Basineni','Praveena','praveenabv8@gmail.com','basineni03')
+insert into customer values(43799,'Sandeep','Nelli','nellisandy93@gmail.com','sandy9280')
+insert into customer values(72910,'Gadhiraju','Chandrasekhar','chandrsekharj@gmail.com','Jathin92378')
+insert into customer values(85286,'Ayush','Shetty','anushianu@gmail.com','sweety82983')
+insert into customer values(59126,'Vickranth','varma','Vikyvarma@gmail.com','vicky8923')
+insert into customer values(43790,'Gayatri','Kasamay','kasamygayatri@gmail.com','gaya83190')
+insert into customer values(91083,'Hitanya','Gadhiraju','hitanyahoney@gmail.com','honey29')
+insert into customer values(72649,'sangaraju','saichandana','chandanasangaraju@gmail.com','sanga92370')
+insert into customer values(27912,'varma','Harshini','harshinivarma@gmail.com','harshi2841')
+insert into customer values(59170,'keerthana','Katrigalla','keerthanna@gmail.com','keerthi7384')
+
+
+
